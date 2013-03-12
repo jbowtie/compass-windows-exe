@@ -3,6 +3,8 @@
 require 'rubygems'
 require 'compass'
 require 'susy'
+require 'fssm'
+#require 'normalize'
 
 version = ">= 0"
 
