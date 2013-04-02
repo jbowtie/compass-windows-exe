@@ -4,7 +4,7 @@ require 'rubygems'
 require 'compass'
 require 'susy'
 require 'fssm'
-#require 'normalize'
+require 'compass-normalize'
 
 version = ">= 0"
 
