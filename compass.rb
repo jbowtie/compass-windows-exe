@@ -1,9 +1,9 @@
 #
 
 require 'rubygems'
+require 'wdm'
 require 'compass'
 require 'susy'
-require 'fssm'
 require 'compass-normalize'
 
 version = ">= 0"
