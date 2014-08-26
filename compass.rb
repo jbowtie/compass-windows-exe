@@ -1,7 +1,7 @@
 #
 
 require 'rubygems'
-require 'wdm'
+#require 'wdm'
 require 'compass'
 require 'susy'
 require 'compass-normalize'
