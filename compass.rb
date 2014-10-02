@@ -1,22 +1,32 @@
-#
+#!/usr/bin/env ruby
+# The compass command line utility
 
 require 'rubygems'
-#require 'wdm'
 require 'compass'
+require 'compass/exec'
 require 'susy'
 require 'compass-normalize'
 require 'sass'
 
-version = ">= 0"
-
-if ARGV.first
-  str = ARGV.first
-  str = str.dup.force_encoding("BINARY") if str.respond_to? :force_encoding
-  if str =~ /\A_(.*)_\z/
-    version = $1
-    ARGV.shift
-  end
+if defined?(Bundler)
+  require 'bundler/shared_helpers'
+  Bundler.require :assets if Bundler::SharedHelpers.in_bundle?
 end
 
-gem 'compass', version
-load Gem.bin_path('compass', 'compass', version)
+runner = Proc.new do
+  Compass::Exec::SubCommandUI.new(ARGV).run!
+end
+
+if ARGV.delete("--profile")
+  require 'ruby-prof'
+  RubyProf.start
+  exit_code = runner.call
+  result = RubyProf.stop
+
+  # Print a flat profile to text
+  printer = RubyProf::FlatPrinter.new(result)
+  printer.print(STDERR, 0)
+  exit exit_code
+else
+  exit runner.call || 1
+end
